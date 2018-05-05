@@ -1,0 +1,148 @@
+// Global Colors
+// ==================
+@color1: #2f6a6a; // Primary color
+@color2: #75B0A0; // Secondary color
+
+@site-bg: @white;
+@content-area-bg: @white;
+
+@color1-light: lighten(@color1, 10%);
+@color2-light: lighten(@color2, 10%);
+
+
+@color1-dark: darken(@color1, 10%);
+@color2-dark: darken(@color2, 10%);
+
+
+
+@grey: #c0bfbf;
+@white: #fff;
+@black: #000;
+
+
+@font1: 'Roboto', sans-serif;
+@font2: 'Volkhov', serif;
+@import url('//fonts.googleapis.com/css?family=Volkhov:400,400i,700|Roboto:300,300i,400,400i,500,700');
+
+
+
+// Core Classes
+// ==================
+.flex {
+	display: flex;
+	flex-flow: row wrap;
+	&-align-items {
+		align-items: center;
+	}
+	&-justify-content {
+		&-center {
+			justify-content: center;
+		}
+	}
+}
+
+
+// Global Styling
+// ==================
+body {
+	background-color: @site-bg;
+	font-family: @font1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: @font2;
+}
+#content_area {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: @content-area-bg;
+}
+
+@link__color: @color1;
+@link__color--hover: contrast(@link__color, darken(@link__color, 10%), lighten(@link__color, 10%));
+a {
+	color: @link__color;
+	&:hover {
+		color: @link__color--hover;
+	}
+}
+
+input {
+	border-color: contrast(@site-bg);
+	border-width: 1px;
+}
+
+@btn-primary__background: @color1;
+@btn-primary__color: contrast(@btn-primary__background);
+@btn-primary__border-color: contrast(@btn-primary__background, darken(@btn-primary__background, 10%), lighten(@btn-primary__background, 10%));
+@btn-primary__background--hover: @color2;
+@btn-primary__color--hover: contrast(@btn-primary__background--hover);
+@btn-primary__border-color--hover: contrast(@btn-primary__background--hover, darken(@btn-primary__background--hover, 10%), lighten(@btn-primary__background--hover, 10%));
+
+@btn-default__background: @content-area-bg;
+@btn-default__color: contrast(@btn-default__background);
+@btn-default__border-color: contrast(@btn-default__background, darken(@btn-default__background, 10%), lighten(@btn-default__background, 10%));
+@btn-default__background--hover: contrast(@btn-default__background, #333, white);
+@btn-default__color--hover: contrast(@btn-default__background--hover);
+@btn-default__border-color--hover: contrast(@btn-default__background--hover, darken(@btn-default__background--hover, 10%), lighten(@btn-default__background--hover, 10%));
+
+.btn {
+	transition: 0.2s linear;
+	&.btn-primary {
+		background-color: @btn-primary__background;
+		color: @btn-primary__color;
+		border-color: @btn-primary__border-color;
+		&:hover{
+			background-color: @btn-primary__background--hover;
+			color: @btn-primary__color--hover;
+			border-color: @btn-primary__border-color--hover;
+		}
+	}
+	&.btn-default {
+		background-color: @btn-default__background;
+		color: @btn-default__color;
+		border-color: @btn-default__border-color;
+		&:hover{
+			background-color: @btn-default__background--hover;
+			color: @btn-default__color--hover;
+			border-color: @btn-default__border-color--hover;
+		}
+	}
+}
+
+.stat-block {
+	.stat__input-wrapper {
+		padding: 5px;
+	}
+	input {
+		@border-radius: 20px;
+		&.stat__modifier {
+			@modifier-input-size: 50px;
+			width: @modifier-input-size;
+			height: @modifier-input-size;
+			line-height: @modifier-input-size;
+			font-size: (@modifier-input-size/2);
+			font-weight: bold;
+			border-radius: @border-radius;
+		}
+		&.stat__value {
+			border-radius: @border-radius;
+		}
+	}
+}
+.skill {
+	input {
+		&.skill__modifier {
+			width: 30px;
+			border-top-width: 0;
+			border-right-width: 0;
+			border-left-width: 0;
+		}
+	}
+}

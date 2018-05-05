@@ -1,0 +1,24 @@
+---
+title: D&D Character Sheet Creator
+---
+<div class="col-xs-12 col-sm-4">
+	<section class="clearfix">
+		{{>simple-input--horizontal
+			input-label="inspiration"
+			value=""
+		}}
+		{{>simple-input--horizontal
+			input-label="proficiency bonus"
+			value="3"
+		}}
+	</section>
+	<section id="stats" class="col-xs-6">
+		{{>section-stats}}
+	</section>
+	<section id="saving-throws" class="clearfix">
+		{{>section-saving-throws}}
+	</section>
+</div>
+	<section id="skill-checks" class="clearfix">
+		{{>section-skill-checks}}
+	</section>

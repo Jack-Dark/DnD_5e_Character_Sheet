@@ -1,0 +1,9 @@
+<div class="stat-block text-center" data-stat-type="{{lowercase stat}}">
+	<label for="stat--{{stat}}">{{capitalize stat}}</label>
+	<div class="stat__input-wrapper">
+		<input class="stat__modifier {{lowercase stat}} text-center" type="text" disabled>
+	</div>
+	<div class="stat__input-wrapper">
+		<input id="stat--{{stat}}" class="stat__value {{lowercase stat}} text-center" value="{{#if value}}{{value}}{{/if}}" type="number" min="0" max="30" onchange="injectStatModifiersOnStatChange()">
+	</div>
+</div>
