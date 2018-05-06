@@ -1,11 +1,7 @@
----
-skillName:
----
-
-<div class="skill" data-stat-type="{{lowercase stat}}" data-skill-name="{{lowercase skill}}">
-	<input class="skill__expertise" type="checkbox" {{#if expertise}}checked{{/if}}>
-	<input class="skill__proficiency" type="checkbox" {{#if proficiency}}checked{{/if}}>
-	<input id="skill--{{hyphenate skill}}" class="skill__modifier" data-skill-name="{{lowercase skill}}" type="text" disabled>
+<div class="skill" data-stat-type="{{lowercase stat}}" data-skill-name="{{hyphenate skill}}">
+	<input id="skill--{{hyphenate skill}}__expertise" class="skill__expertise" type="checkbox" onchange="{{>on-change-script}}" {{#if expertise}}checked{{/if}}>
+	<input id="skill--{{hyphenate skill}}__proficiency" class="skill__proficiency" type="checkbox" onchange="{{>on-change-script}}" {{#if proficiency}}checked{{/if}}>
+	<input id="skill--{{hyphenate skill}}" class="skill__modifier" data-skill-name="{{hyphenate skill}}" type="text" disabled>
 	<label for="skill--{{hyphenate skill}}">
 		{{titleize skill}} (<span class="text-uppercase">{{truncate stat 3}}</span>)
 	</label>

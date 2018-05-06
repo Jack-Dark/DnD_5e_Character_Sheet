@@ -1,6 +1,7 @@
 const character = {
 	race: '',
 	class: '',
+	level: 1,
 	inspiration: 0,
 	proficiencyBonus: 0,
 	stats: {
@@ -9,11 +10,9 @@ const character = {
 			modifier: 0,
 			skills: {
 				athletics: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				}
 			}
 		},
@@ -22,25 +21,19 @@ const character = {
 			modifier: 0,
 			skills: {
 				acrobatics: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				sleightOfHand: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				stealth: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				}
 			}
 		},
@@ -53,39 +46,29 @@ const character = {
 			modifier: 0,
 			skills: {
 				arcana: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				history: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				investigation: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				nature: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				religion: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				}
 			}
 		},
@@ -94,39 +77,29 @@ const character = {
 			modifier: 0,
 			skills: {
 				animalHandling: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				insight: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				medicine: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				perception: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				survival: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				}
 			}
 		},
@@ -135,41 +108,29 @@ const character = {
 			modifier: 0,
 			skills: {
 				deception: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				intimidation: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				performance: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				},
 				persuasion: {
-					modifier: 0,
-					proficiency: {
-						expertise: false,
-						proficient: false
-					}
+					expertise: false,
+					proficiency: false,
+					modifier: 0
 				}
 			}
 		}
 	}
 };
-
-character.proficiencyBonus = document.querySelector('#input__proficiency-bonus').getAttribute('value');
-
-
 function onDocumentReady(fn) {
   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
     fn();
@@ -178,24 +139,47 @@ function onDocumentReady(fn) {
   }
 }
 function runDocumentReadyTasks() {
-	forEachStatGetDetails(updateCharacterStatsVariable);
-	forEachStatGetDetails(injectStatModifiers);
-	forEachStatGetDetails(updateSkillModifiers);
-	console.log(character.stats.charisma.skills);
+	updateCharacterLevelVariable();
+	updateProficiencyBonusVariable();
+	// character.proficiencyBonus = document.querySelector('#input__proficiency-bonus').getAttribute('value');
+	forEachStat(updateCharacterStatsVariables);
+	forEachStat(updateCharacterSkillsVariables);
+	forEachStat(injectCharacterJsonIntoPage);
+	console.log(character.proficiencyBonus);
 }
 function camelizeString(string) {
 	return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
 	}).replace(/\s+/g, '');
 }
-function forEachStatGetDetails(fn) {
-	var statBlock = document.querySelectorAll('.stat-block');
+function camelizeHyphenatedString(string) {
+	return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+	}).replace(/[-]+/g, '');
+}
+
+function updateCharacterLevelVariable() {
+	return character.level = document.querySelector('#character--level').value;
+}
+function updateProficiencyBonusVariable() {
+	var characterLevel = character.level;
+	var proficiencyBonus = 2;
+	var characterLevelIntervalsForProficiencyIncrease = [1, 5, 9, 13, 17];
+	var characterLevelProficiencyIncreaseScore = [2, 3, 4, 5, 6];
+	for (characterLevelInterval = 0; characterLevelInterval < characterLevelIntervalsForProficiencyIncrease.length; characterLevelInterval++) {
+		if (characterLevel >= characterLevelIntervalsForProficiencyIncrease[characterLevelInterval] && characterLevel < characterLevelIntervalsForProficiencyIncrease[(characterLevelInterval + 1)]) {
+			return character.proficiencyBonus = characterLevelProficiencyIncreaseScore[characterLevelInterval]
+		}
+	}
+}
+function forEachStat(fn) {
+	var statBlock = document.querySelectorAll('.stat');
 	for (occuranceOfStatBlock = 0; occuranceOfStatBlock < statBlock.length; occuranceOfStatBlock++) {
-		var thisStatBlock = statBlock[occuranceOfStatBlock];
-		var thisStatType = thisStatBlock.getAttribute('data-stat-type');
-		var thisStatValue = Number(thisStatBlock.querySelector('.stat__value').getAttribute('value'));
+		var thisStatBlockElement = statBlock[occuranceOfStatBlock];
+		var thisStatType = thisStatBlockElement.getAttribute('data-stat-type');
+		var thisStatValue = Number(thisStatBlockElement.querySelector('.stat__value').value);
 		var thisStatModifier = calculateStatModifier(thisStatValue);
-		fn(thisStatBlock, thisStatType, thisStatValue, thisStatModifier);
+		fn(thisStatBlockElement, thisStatType, thisStatValue, thisStatModifier);
 	}
 }
 function calculateStatModifier(statScore) {
@@ -209,62 +193,81 @@ function statDifferenceFromTen(statScore){
 		return (10 - statScore) * -1
 	}
 }
-function updateCharacterStatsVariable(statBlockElement, statType, statScore, statModifier) {
-	console.log(eval('character.stats.' + statType + '.score = statScore'));
-	console.log(eval('character.stats.' + statType + '.modifier = statModifier'));
-	// return eval('character.stats.' + statType + '.score = statScore');
+function updateCharacterStatsVariables(statBlockElement, statType, statScore, statModifier) {
+	updateCharacterStatScoreVariable(statType, statScore);
+	updateCharacterStatModifierVariable(statType, statModifier);
+}
+function updateCharacterStatScoreVariable(statType, statScore) {
+	return eval('character.stats.' + statType + '.score = statScore');
+}
+function updateCharacterStatModifierVariable(statType, statModifier) {
 	return eval('character.stats.' + statType + '.modifier = statModifier');
 }
-function injectStatModifiers(statBlockElement, statType, statScore, statModifier) {
-	var statBlockModifierInput = statBlockElement.querySelector('.stat__modifier');
-	statBlockModifierInput.setAttribute('value', statModifier);
-}
-function updateSkillModifiers(statBlockElement, statType, statScore, statModifier) {
+function updateCharacterSkillsVariables(statBlockElement, statType, statScore, statModifier) {
 	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
-		var skill = skillsOfStatType[occuranceOfskillsOfStatType];
-		var skillName = camelizeString(skill.getAttribute('data-skill-name'));
-		var skillType = skill.getAttribute('data-stat-type');
-		var skillModifierInput = skill.querySelector('.skill__modifier');
-		var skillExpertiseInput = skill.querySelector('.skill__expertise');
-		var skillProficiencyInput = skill.querySelector('.skill__proficiency');
-		checkForProficiencyBonuses(skillType, skillName, skillExpertiseInput, skillProficiencyInput);
+		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+		var skillName = thisSkill.getAttribute('data-skill-name');
+		var skillNameCamelized = camelizeHyphenatedString(skillName);
+		var skillExpertiseInput = thisSkill.querySelector('.skill__expertise');
+		var skillHasExpertise = skillExpertiseInput.checked;
+		var skillProficiencyInput = thisSkill.querySelector('.skill__proficiency');
+		var skillHasProficiency = skillProficiencyInput.checked;
+		var characterSkillVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized;
+		checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillProficiencyInput);
+		enableProficiencyInputIfExpertiseIsUnchecked(skillHasExpertise, skillProficiencyInput);
+		updateCharacterSkillExpertiseVariable(characterSkillVariable, skillHasExpertise);
+		updateCharacterSkillProficiencyVariable(characterSkillVariable, skillHasProficiency);
+		updateCharacterSkillModifierVariable(characterSkillVariable, skillHasExpertise, skillHasProficiency, statModifier);
 	}
 }
-function checkForProficiencyBonuses(skillType, skillName, skillExpertiseInput, skillProficiencyInput) {
-	var characterSkillVariable  = 'character.stats.' + skillType + '.skills.' + skillName;
+function checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillProficiencyInput) {
+	if (skillHasExpertise) {
+		skillProficiencyInput.checked = true;
+		skillProficiencyInput.disabled = true;
+	}
+}
+function enableProficiencyInputIfExpertiseIsUnchecked(skillHasExpertise, skillProficiencyInput) {
+	if (!skillHasExpertise) {
+		skillProficiencyInput.removeAttribute('disabled');
+	}
+}
+function updateCharacterSkillExpertiseVariable(characterSkillVariable, skillHasExpertise) {
+	return eval(characterSkillVariable + '.expertise = ' + skillHasExpertise);
+}
+function updateCharacterSkillProficiencyVariable(characterSkillVariable, skillHasProficiency) {
+	return eval(characterSkillVariable + '.proficiency = ' + skillHasProficiency);
+}
+function updateCharacterSkillModifierVariable(characterSkillVariable, skillHasExpertise, skillHasProficiency, statModifier) {
 	var characterSkillModifierVariable  = characterSkillVariable + '.modifier';
-	var characterSkillProficiencyVariables  = characterSkillVariable + '.proficiency';
-	if (skillExpertiseInput.checked) {
-		updateProficiencyVariables(characterSkillProficiencyVariables, true, true);
-		updateSkillModifierVariable(characterSkillProficiencyVariables, characterSkillModifierVariable);
-	} else if (skillProficiencyInput.checked) {
-		updateProficiencyVariables(characterSkillProficiencyVariables, false, true);
-		updateSkillModifierVariable(characterSkillProficiencyVariables, characterSkillModifierVariable);
+	if (skillHasExpertise) {
+		return eval(characterSkillModifierVariable + ' = ' + (character.proficiencyBonus * 2 + statModifier));
+	} else if (skillHasProficiency) {
+		return eval(characterSkillModifierVariable + ' = ' + (character.proficiencyBonus * 1 + statModifier));
 	} else {
-		updateProficiencyVariables(characterSkillProficiencyVariables, false, false);
-		updateSkillModifierVariable(characterSkillProficiencyVariables, characterSkillModifierVariable);
+		return eval(characterSkillModifierVariable + ' = ' + statModifier);
 	}
 }
-function updateProficiencyVariables(characterSkillProficiencyVariables, expertise, proficient) {
-	return eval(characterSkillProficiencyVariables + ' = {"expertise": ' + expertise + ', "proficient": ' + proficient + '}');
+function injectCharacterJsonIntoPage(statBlockElement, statType, statScore, statModifier) {
+	injectCharacterProficiencyBonus();
+	injectCharacterStatsModifers(statBlockElement, statModifier);
+	injectCharacterSkillsModifers(statType);
 }
-function updateSkillModifierVariable(characterSkillProficiencyVariables, characterSkillModifierVariable) {
-	var proficiencyBonus = character.proficiencyBonus;
-	var expertiseBonus = proficiencyBonus * 2;
-	var characterSkillExpertise  = characterSkillProficiencyVariables + '.expertise';
-	var characterSkillProficienct  = characterSkillProficiencyVariables + '.proficient';
-	if (eval(characterSkillExpertise)) {
-		return eval(characterSkillModifierVariable + ' = ' + (eval(characterSkillModifierVariable) + expertiseBonus));
-	} else if (eval(characterSkillProficienct)) {
-		return eval(characterSkillModifierVariable + ' = ' + (eval(characterSkillModifierVariable) + proficiencyBonus));
+function injectCharacterProficiencyBonus() {
+	document.querySelector('#input__proficiency-bonus').value = character.proficiencyBonus;
+}
+function injectCharacterStatsModifers(statBlockElement, statModifier) {
+	statBlockElement.querySelector('input.stat__modifier').value = statModifier;
+}
+function injectCharacterSkillsModifers(statType) {
+	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
+		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+		var skillName = thisSkill.getAttribute('data-skill-name');
+		var skillNameCamelized = camelizeHyphenatedString(skillName);
+		var skillModifierInput = thisSkill.querySelector('.skill__modifier');
+		var characterSkillModifierVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized + '.modifier';
+		skillModifierInput.value = eval(characterSkillModifierVariable);
 	}
 }
-function injectSkillsModifiers(statBlockElement, statType, statScore, statModifier) {
-	var statBlockModifierInput = statBlockElement.querySelector('.stat__modifier');
-	statBlockModifierInput.setAttribute('value', statModifier);
-}
-
-// function onStatChange(fn) {
-// }
 onDocumentReady(runDocumentReadyTasks);

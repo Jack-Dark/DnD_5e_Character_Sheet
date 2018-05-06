@@ -3,6 +3,9 @@ title: D&D Character Sheet Creator
 ---
 <div class="col-xs-12 col-sm-4">
 	<section class="clearfix">
+		{{>character-level}}
+	</section>
+	<section class="clearfix">
 		{{>simple-input--horizontal
 			input-label="inspiration"
 			value=""
@@ -20,5 +23,5 @@ title: D&D Character Sheet Creator
 	</section>
 </div>
 	<section id="skill-checks" class="clearfix">
-		{{>section-skill-checks}}
+		{{>section-skills}}
 	</section>

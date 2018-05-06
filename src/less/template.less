@@ -76,6 +76,10 @@ a {
 input {
 	border-color: contrast(@site-bg);
 	border-width: 1px;
+	&[type="number"] {
+	  -webkit-appearance: none; 
+	  margin: 0; 
+	}
 }
 
 @btn-primary__background: @color1;
@@ -116,7 +120,7 @@ input {
 	}
 }
 
-.stat-block {
+.stat {
 	.stat__input-wrapper {
 		padding: 5px;
 	}
