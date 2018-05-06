@@ -139,13 +139,8 @@ function onDocumentReady(fn) {
   }
 }
 function runDocumentReadyTasks() {
-	updateCharacterLevelVariable();
-	updateProficiencyBonusVariable();
-	// character.proficiencyBonus = document.querySelector('#input__proficiency-bonus').getAttribute('value');
-	forEachStat(updateCharacterStatsVariables);
-	forEachStat(updateCharacterSkillsVariables);
+	updateCharacterJsonVariables();
 	forEachStat(injectCharacterJsonIntoPage);
-	console.log(character.proficiencyBonus);
 }
 function camelizeString(string) {
 	return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
@@ -157,7 +152,13 @@ function camelizeHyphenatedString(string) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
 	}).replace(/[-]+/g, '');
 }
-
+function updateCharacterJsonVariables () {
+	updateCharacterLevelVariable();
+	updateProficiencyBonusVariable();
+	forEachStat(updateCharacterStatsVariables);
+	forEachStat(updateCharacterSkillsVariables);
+	console.log(character);
+}
 function updateCharacterLevelVariable() {
 	return character.level = document.querySelector('#character--level').value;
 }
