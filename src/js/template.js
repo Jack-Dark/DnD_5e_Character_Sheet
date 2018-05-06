@@ -164,11 +164,11 @@ function updateCharacterLevelVariable() {
 function updateProficiencyBonusVariable() {
 	var characterLevel = character.level;
 	var proficiencyBonus = 2;
-	var characterLevelIntervalsForProficiencyIncrease = [1, 5, 9, 13, 17];
+	var characterLevelIntervalsForProficiencyIncrease = [1, 5, 9, 13, 17, 21];
 	var characterLevelProficiencyIncreaseScore = [2, 3, 4, 5, 6];
-	for (characterLevelInterval = 0; characterLevelInterval < characterLevelIntervalsForProficiencyIncrease.length; characterLevelInterval++) {
-		if (characterLevel >= characterLevelIntervalsForProficiencyIncrease[characterLevelInterval] && characterLevel < characterLevelIntervalsForProficiencyIncrease[(characterLevelInterval + 1)]) {
-			return character.proficiencyBonus = characterLevelProficiencyIncreaseScore[characterLevelInterval]
+	for (characterLevelInterval = 0; characterLevelInterval <= characterLevelIntervalsForProficiencyIncrease.length; characterLevelInterval = (characterLevelInterval + 1)) {
+		if (characterLevel >= characterLevelIntervalsForProficiencyIncrease[characterLevelInterval] &&  characterLevel < characterLevelIntervalsForProficiencyIncrease[(characterLevelInterval + 1)]) {
+			return character.proficiencyBonus = characterLevelProficiencyIncreaseScore[characterLevelInterval];
 		}
 	}
 }
