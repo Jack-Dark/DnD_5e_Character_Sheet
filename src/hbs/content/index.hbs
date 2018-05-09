@@ -3,6 +3,12 @@ title: D&D Character Sheet Creator
 ---
 <div class="col-xs-12 col-sm-4">
 	<section class="clearfix">
+		{{>simple-input--horizontal
+			input-label="character-name"
+			value="Twang"
+		}}
+		{{>character-race}}
+		{{>character-class}}
 		{{>character-level}}
 	</section>
 	<section class="clearfix">
@@ -22,6 +28,8 @@ title: D&D Character Sheet Creator
 		{{>section-saving-throws}}
 	</section>
 </div>
+<div class="col-xs-12 col-sm-4">
 	<section id="skill-checks" class="clearfix">
 		{{>section-skills}}
 	</section>
+</div>
