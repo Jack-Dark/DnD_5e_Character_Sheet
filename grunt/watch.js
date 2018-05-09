@@ -21,7 +21,7 @@ module.exports = {
     js: {
         files: 'src/js/**/*.js',
         tasks: [
-            'copy:js'
+            'concat:js'
         ]
     }
 }

@@ -1,6 +1,12 @@
 module.exports = {
     'options': {
-        'separator': ';'
+        'separator': '\n'
+    },
+    'js': {
+        'src': [
+            'src/js/**/*.js'
+        ],
+        'dest': 'build/js/template.js'
     },
     'build': {
         'src': [

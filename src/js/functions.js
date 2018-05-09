@@ -1,136 +1,3 @@
-const character = {
-	race: '',
-	class: '',
-	level: 1,
-	inspiration: 0,
-	proficiencyBonus: 0,
-	stats: {
-		strength: {
-			score: 0,
-			modifier: 0,
-			skills: {
-				athletics: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				}
-			}
-		},
-		dexterity: {
-			score: 0,
-			modifier: 0,
-			skills: {
-				acrobatics: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				sleightOfHand: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				stealth: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				}
-			}
-		},
-		constitution: {
-			score: 0,
-			modifier: 0
-		},
-		intelligence: {
-			score: 0,
-			modifier: 0,
-			skills: {
-				arcana: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				history: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				investigation: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				nature: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				religion: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				}
-			}
-		},
-		wisdom: {
-			score: 0,
-			modifier: 0,
-			skills: {
-				animalHandling: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				insight: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				medicine: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				perception: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				survival: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				}
-			}
-		},
-		charisma: {
-			score: 0,
-			modifier: 0,
-			skills: {
-				deception: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				intimidation: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				performance: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				},
-				persuasion: {
-					expertise: false,
-					proficiency: false,
-					modifier: 0
-				}
-			}
-		}
-	}
-};
 function onDocumentReady(fn) {
   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
     fn();
@@ -150,14 +17,23 @@ function camelizeString(string) {
 function camelizeHyphenatedString(string) {
 	return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-	}).replace(/[-]+/g, '');
+	}).replace(/[-]+/g, '').replace(/\s+/g, '');
 }
 function updateCharacterJsonVariables () {
+	updateCharacterRaceVariable();
+	updateCharacterClasssVariable();
 	updateCharacterLevelVariable();
 	updateProficiencyBonusVariable();
+	forEachStat(toggleDependentProficiencies);
 	forEachStat(updateCharacterStatsVariables);
 	forEachStat(updateCharacterSkillsVariables);
-	console.log(character);
+	// console.log(character);
+}
+function updateCharacterRaceVariable() {
+	return character.race = camelizeHyphenatedString(document.querySelector('#character--race').value.toLowerCase());
+}
+function updateCharacterClasssVariable() {
+	return character.class = document.querySelector('#character--class').value.toLowerCase();
 }
 function updateCharacterLevelVariable() {
 	return character.level = document.querySelector('#character--level').value;
@@ -204,6 +80,35 @@ function updateCharacterStatScoreVariable(statType, statScore) {
 function updateCharacterStatModifierVariable(statType, statModifier) {
 	return eval('character.stats.' + statType + '.modifier = statModifier');
 }
+function toggleDependentProficiencies(statBlockElement, statType, statScore, statModifier) {
+	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
+		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+		var skillName = thisSkill.getAttribute('data-skill-name');
+		var skillNameCamelized = camelizeHyphenatedString(skillName);
+		var skillExpertiseInput = thisSkill.querySelector('.skill__expertise');
+		var skillHasExpertise = skillExpertiseInput.checked;
+		var skillProficiencyInput = thisSkill.querySelector('.skill__proficiency');
+		var skillHasProficiency = skillProficiencyInput.checked;
+		var characterSkillVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized;
+		var characterSkillExpertiseVariable = eval(characterSkillVariable + '.expertise');
+		var characterSkillProficiencyVariable = eval(characterSkillVariable + '.proficiency');
+		uncheckExpertiseInputIfProficiencyIsUnchecked(skillHasExpertise, skillHasProficiency, skillExpertiseInput, characterSkillExpertiseVariable, characterSkillProficiencyVariable);
+		checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillHasProficiency, skillProficiencyInput, characterSkillExpertiseVariable);
+	}
+}
+function uncheckExpertiseInputIfProficiencyIsUnchecked(skillHasExpertise, skillHasProficiency, skillExpertiseInput, characterSkillExpertiseVariable, characterSkillProficiencyVariable) {
+	if (skillHasExpertise && !skillHasProficiency && characterSkillExpertiseVariable && characterSkillProficiencyVariable) {
+		skillExpertiseInput.checked = false;
+		skillExpertiseInput.removeAttribute('checked');
+	}
+}
+function checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillHasProficiency, skillProficiencyInput, characterSkillExpertiseVariable) {
+	if (skillHasExpertise && !skillHasProficiency && !characterSkillExpertiseVariable) {
+		skillProficiencyInput.checked = true;
+		skillProficiencyInput.setAttribute('checked', '');
+	}
+}
 function updateCharacterSkillsVariables(statBlockElement, statType, statScore, statModifier) {
 	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
@@ -215,22 +120,11 @@ function updateCharacterSkillsVariables(statBlockElement, statType, statScore, s
 		var skillProficiencyInput = thisSkill.querySelector('.skill__proficiency');
 		var skillHasProficiency = skillProficiencyInput.checked;
 		var characterSkillVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized;
-		checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillProficiencyInput);
-		enableProficiencyInputIfExpertiseIsUnchecked(skillHasExpertise, skillProficiencyInput);
+		var characterSkillExpertiseVariable = eval(characterSkillVariable + '.expertise');
+		var characterSkillProficiencyVariable = eval(characterSkillVariable + '.proficiency');
 		updateCharacterSkillExpertiseVariable(characterSkillVariable, skillHasExpertise);
 		updateCharacterSkillProficiencyVariable(characterSkillVariable, skillHasProficiency);
 		updateCharacterSkillModifierVariable(characterSkillVariable, skillHasExpertise, skillHasProficiency, statModifier);
-	}
-}
-function checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillProficiencyInput) {
-	if (skillHasExpertise) {
-		skillProficiencyInput.checked = true;
-		skillProficiencyInput.disabled = true;
-	}
-}
-function enableProficiencyInputIfExpertiseIsUnchecked(skillHasExpertise, skillProficiencyInput) {
-	if (!skillHasExpertise) {
-		skillProficiencyInput.removeAttribute('disabled');
 	}
 }
 function updateCharacterSkillExpertiseVariable(characterSkillVariable, skillHasExpertise) {
