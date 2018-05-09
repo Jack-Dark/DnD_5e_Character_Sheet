@@ -1,7 +1,7 @@
 {
-  "name": "jaylyn-ux",
+  "name": "dnd_5e_character_sheet",
   "version": "1.0.0",
-  "description": "Portfolio of Jaylyn Dawson",
+  "description": "A custom web based character sheet for D&D 5e.",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
