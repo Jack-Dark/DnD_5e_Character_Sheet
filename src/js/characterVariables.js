@@ -1,6 +1,6 @@
 const character = {
-	race: '',
-	class: '',
+	race: 'Kenku',
+	class: 'Rouge',
 	level: 1,
 	inspiration: 0,
 	proficiencyBonus: 0,
@@ -131,3 +131,5 @@ const character = {
 		}
 	}
 };
+
+var characterClass = {};

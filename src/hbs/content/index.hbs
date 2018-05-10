@@ -1,35 +1,40 @@
 ---
 title: D&D Character Sheet Creator
 ---
-<div class="col-xs-12 col-sm-4">
-	<section class="clearfix">
-		{{>simple-input--horizontal
-			input-label="character-name"
-			value="Twang"
-		}}
-		{{>character-race}}
-		{{>character-class}}
-		{{>character-level}}
-	</section>
-	<section class="clearfix">
-		{{>simple-input--horizontal
-			input-label="inspiration"
-			value=""
-		}}
-		{{>simple-input--horizontal
-			input-label="proficiency bonus"
-			value="3"
-		}}
-	</section>
-	<section id="stats" class="col-xs-6">
-		{{>section-stats}}
-	</section>
-	<section id="saving-throws" class="clearfix">
-		{{>section-saving-throws}}
-	</section>
+<div class="col-xs-12 col-sm-6">
+	<div class="row">
+		<div class="col-xs-6">
+			<section class="clearfix">
+				{{>simple-input--horizontal
+					input-label="character-name"
+					value="Twang"
+				}}
+				{{>character-race}}
+				{{>character-class}}
+				{{>character-level}}
+			</section>
+			<section class="clearfix">
+				{{>simple-input--horizontal
+					input-label="inspiration"
+					value=""
+				}}
+				{{>simple-input--horizontal
+					input-label="proficiency bonus"
+					value="3"
+				}}
+			</section>
+			<section id="stats" class="col-xs-6">
+				{{>section-stats}}
+			</section>
+			<section id="saving-throws" class="clearfix">
+				{{>section-saving-throws}}
+			</section>
+		</div>
+		<div class="col-xs-6">
+			<section id="skill-checks" class="clearfix">
+				{{>section-skills}}
+			</section>
+		</div>
+	</div>
 </div>
-<div class="col-xs-12 col-sm-4">
-	<section id="skill-checks" class="clearfix">
-		{{>section-skills}}
-	</section>
-</div>
+<div class="character-level-rewards col-xs-12 col-sm-6"></div>

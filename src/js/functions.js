@@ -9,6 +9,9 @@ function runDocumentReadyTasks() {
 	updateCharacterJsonVariables();
 	forEachStat(injectCharacterJsonIntoPage);
 }
+function createInnerHtmlString(element, attribute, attributeValue, contents) {
+	return '<' + element + ' ' + attribute + '="' + attributeValue + '">' + contents + '</' + element + '>'
+}
 function camelizeString(string) {
 	return string.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
@@ -19,7 +22,7 @@ function camelizeHyphenatedString(string) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
 	}).replace(/[-]+/g, '').replace(/\s+/g, '');
 }
-function updateCharacterJsonVariables () {
+function updateCharacterJsonVariables() {
 	updateCharacterRaceVariable();
 	updateCharacterClasssVariable();
 	updateCharacterLevelVariable();
@@ -27,6 +30,7 @@ function updateCharacterJsonVariables () {
 	forEachStat(toggleDependentProficiencies);
 	forEachStat(updateCharacterStatsVariables);
 	forEachStat(updateCharacterSkillsVariables);
+	listAvailableLevelRewards(character.level);
 	// console.log(character);
 }
 function updateCharacterRaceVariable() {
@@ -165,4 +169,8 @@ function injectCharacterSkillsModifers(statType) {
 		skillModifierInput.value = eval(characterSkillModifierVariable);
 	}
 }
+
+
+
+
 onDocumentReady(runDocumentReadyTasks);
