@@ -22,6 +22,16 @@ function camelizeHyphenatedString(string) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
 	}).replace(/[-]+/g, '').replace(/\s+/g, '');
 }
+function parseUrlSearchIntoJson() { // come back to this to run first on document ready.
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+
 function updateCharacterJsonVariables() {
 	updateCharacterRaceVariable();
 	updateCharacterClasssVariable();
