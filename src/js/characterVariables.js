@@ -1,6 +1,7 @@
 const character = {
-	race: 'Kenku',
-	class: 'Rouge',
+	race: '',
+	class: '',
+	subclass: '',
 	level: 1,
 	inspiration: 0,
 	proficiencyBonus: 0,
