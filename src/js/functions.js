@@ -9,7 +9,7 @@ function runDocumentReadyTasks() {
 	updateCharacterJsonVariables();
 	forEachStat(injectCharacterJsonIntoPage);
 }
-function createInnerHtmlString(element, attribute, attributeValue, contents) {
+function createInnerHtmlString(element, contents, attribute, attributeValue) {
 	return '<' + element + ' ' + attribute + '="' + attributeValue + '">' + contents + '</' + element + '>'
 }
 function camelizeString(string) {
