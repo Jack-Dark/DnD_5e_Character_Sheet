@@ -26,6 +26,7 @@ function updateCharacterJsonVariables() {
 	updateCharacterRaceVariable();
 	updateCharacterClasssVariable();
 	updateCharacterLevelVariable();
+	toggleSubclassVisibility();
 	updateProficiencyBonusVariable();
 	forEachStat(toggleDependentProficiencies);
 	forEachStat(updateCharacterStatsVariables);
@@ -41,6 +42,38 @@ function updateCharacterClasssVariable() {
 }
 function updateCharacterLevelVariable() {
 	return character.level = document.querySelector('#character--level').value;
+}
+
+// SUBCLASSES
+// ==========
+
+function toggleSubclassVisibility() {
+	toggleSubclassOptions();
+	toggleSubclassMenu();
+	updateCharacterSubclassVariable();
+}
+function toggleSubclassMenu() {
+	var subclassAvailableAtLevel = eval('characterClass.' + character.class + '.subclassAvailableAtLevel');
+	var subclassElementWrapper = document.querySelector('.character--subclass-wrapper');
+	if (character.level >= subclassAvailableAtLevel) {
+		subclassElementWrapper.classList.remove('hidden');
+	} else {
+		subclassElementWrapper.classList.add('hidden');
+	}
+}
+function updateCharacterSubclassVariable() {
+	var selectedSubclass = document.querySelector('#character--subclass').value.toLowerCase();
+	return character.subclass = selectedSubclass;
+}
+function toggleSubclassOptions() {
+	var allSubclassOptions = document.querySelectorAll('.character--subclass__option');
+	for (subclassOption = 0; subclassOption < allSubclassOptions.length; subclassOption++) {
+		var thisSubclass = allSubclassOptions[subclassOption];
+		var subclassOfClass = thisSubclass.getAttribute('data-character-class').toLowerCase();
+		if (character.class == subclassOfClass) {
+			thisSubclass.classList.remove('hidden');
+		}
+	}
 }
 function updateProficiencyBonusVariable() {
 	var characterLevel = character.level;
