@@ -9,7 +9,7 @@ function onDocumentReady(fn) {
 }
 function runDocumentReadyTasks() {
 	updateCharacterJsonVariables();
-	forEachStat(injectCharacterJsonIntoPage);
+	// forEachStatRunFunction(injectCharacterJsonIntoPage, options);
 }
 
 // GLOBAL FUNCTIONS
@@ -37,20 +37,29 @@ function parseUrlSearchIntoJson() { // come back to this to run first on documen
     var item = part.split("=");
     result[item[0]] = decodeURIComponent(item[1]);
   });
+  console.log(result);
   return result;
 }
-
+function updateURL(parsedJson) {
+  if (history.pushState) {
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + parsedJson;
+      window.history.pushState({path:newurl},'',newurl);
+  }
+}
 function updateCharacterJsonVariables() {
 	updateCharacterRaceVariable();
 	updateCharacterClasssVariable();
 	updateCharacterLevelVariable();
 	toggleSubclassVisibility();
 	listAvailableLevelRewards();
-	updateProficiencyBonusVariable();
-	forEachStat(toggleDependentProficiencies);
-	forEachStat(updateCharacterStatsVariables);
-	forEachStat(updateCharacterSkillsVariables);
-	console.log(character);
+	createCharacterStatsVariable();
+	forEachStatRunFunction(createSpecificCharacterStatsVariables);
+	forEachSkillRunFunction(createCharacterSkillsVariable);
+	forEachSkillRunFunction(createSpecificCharacterSkillsVariables);
+	// forEachSkillOfStatTypeRunfunction(statType, updateCharacterSkillsVariables);
+	// updateProficiencyBonusVariable();
+	// forEachStatRunFunction(toggleDependentProficiencies, options);
+	console.log(character.stats.dexterity);
 }
 function updateCharacterRaceVariable() {
 	return character.race = camelizeHyphenatedString(document.querySelector('#character--race').value.toLowerCase());
@@ -156,16 +165,6 @@ function updateProficiencyBonusVariable() {
 		}
 	}
 }
-function forEachStat(fn) {
-	var statBlock = document.querySelectorAll('.stat');
-	for (occuranceOfStatBlock = 0; occuranceOfStatBlock < statBlock.length; occuranceOfStatBlock++) {
-		var thisStatBlockElement = statBlock[occuranceOfStatBlock];
-		var thisStatType = thisStatBlockElement.getAttribute('data-stat-type');
-		var thisStatValue = Number(thisStatBlockElement.querySelector('.stat__value').value);
-		var thisStatModifier = calculateStatModifier(thisStatValue);
-		fn(thisStatBlockElement, thisStatType, thisStatValue, thisStatModifier);
-	}
-}
 function calculateStatModifier(statScore) {
 	var statDifferenceHalved = statDifferenceFromTen(statScore)/2;
 	return Math.floor(statDifferenceHalved);
@@ -177,13 +176,86 @@ function statDifferenceFromTen(statScore){
 		return (10 - statScore) * -1
 	}
 }
-function updateCharacterStatsVariables(statBlockElement, statType, statScore, statModifier) {
-	updateCharacterStatScoreVariable(statType, statScore);
-	updateCharacterStatModifierVariable(statType, statModifier);
+
+// CHARACTER STATS
+// ===============
+
+function createCharacterStatsVariable() {
+	return character.stats = {};
 }
-function updateCharacterStatScoreVariable(statType, statScore) {
-	return eval('character.stats.' + statType + '.score = statScore');
+function forEachStatRunFunction(fn, options) {
+	var statBlocks = document.querySelectorAll('.character--stat');
+	for (occuranceOfStatBlock = 0; occuranceOfStatBlock < statBlocks.length; occuranceOfStatBlock++) {
+		var thisStatBlockElement = statBlocks[occuranceOfStatBlock];
+		var thisStatType = thisStatBlockElement.getAttribute('data-stat-type');
+		var thisStatValue = Number(thisStatBlockElement.querySelector('.character--stat__value').value);
+		var thisStatModifier = calculateStatModifier(thisStatValue);
+		if (options != undefined) {
+			// console.log('Running function with passed options.')
+			fn(thisStatType, options);
+		} else {
+			// console.log('Running function by itself.')
+			fn(thisStatType);
+		}
+	}
 }
+function createSpecificCharacterStatsVariables(statType) {
+	// return character.stats.push(statType);
+	return eval('character.stats.' + statType + ' = {}');
+}
+function turnEachStatVariableIntoAnArray(statType) {
+	var statIndex = character.stats.indexOf(statType);
+	return character.stats[statIndex].push('test');
+}
+function forEachSkillRunFunction(fn, options) {	
+	var skillBlocks = document.querySelectorAll('.character--skill');
+	var skillsOfTheSameStat = [];
+	for (occuranceOfSkill = 0; occuranceOfSkill < skillBlocks.length; occuranceOfSkill++) {
+		var thisSkill = skillBlocks[occuranceOfSkill];
+		var thisSkillsStat = thisSkill.getAttribute('data-stat-type');
+		// var thisSkillsStatIndex = character.stats.indexOf(thisSkillsStat);
+		var skillName = thisSkill.getAttribute('data-skill-name');
+		var skillNameCamelized = camelizeHyphenatedString(skillName);
+		if (options != undefined) {
+			fn(options);
+		} else {
+			fn(thisSkillsStat, skillNameCamelized);
+		}
+	}
+
+}
+function createCharacterSkillsVariable(statType) {
+	return eval('character.stats.' + statType + '.skills = {}');
+}
+function createSpecificCharacterSkillsVariables(statType, skillNameCamelized) {
+	return eval('character.stats.' + statType + '.skills.' + skillNameCamelized + ' = {}');
+}
+// function createSpecificCharacterSkillsVariables(statBlockElement, statType, statScore, statModifier) {
+// 	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+// 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
+// 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+// 		var skillName = thisSkill.getAttribute('data-skill-name');
+// 		var skillNameCamelized = camelizeHyphenatedString(skillName);
+// 		return eval('character.stats.' + statType + '.skills.' + skillNameCamelized ' = {}');
+// 	}
+// }
+// function createSpecificCharacterSkillsVariables(statBlockElement, statType, statScore, statModifier) {
+// 	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+// 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
+// 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+// 		var skillName = thisSkill.getAttribute('data-skill-name');
+// 		var skillNameCamelized = camelizeHyphenatedString(skillName);
+// 		return eval('character.stats.' + statType + '.skills.' + skillNameCamelized);
+// 	}
+// }
+// function updateCharacterStatScoreVariable(statType, statScore) {
+// 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
+// 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
+// 		var skillName = thisSkill.getAttribute('data-skill-name');
+// 		var skillNameCamelized = camelizeHyphenatedString(skillName);
+// 		return eval('character.stats.' + statType + '.score = statScore');
+// 	}
+// }
 function updateCharacterStatModifierVariable(statType, statModifier) {
 	return eval('character.stats.' + statType + '.modifier = statModifier');
 }
