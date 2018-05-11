@@ -3,7 +3,9 @@ characterClass.rogue = {
 		stat: 'dexterity',
 		stat: 'intelligence'
 	},
+	subclassAvailableAtLevel: 3,
 	subclasses: [
+		'',
 		'Arcane Trickster',
 		'Assassin',
 		'Inquisitive',
@@ -16,6 +18,7 @@ characterClass.rogue = {
 		'_1': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Expertise',
 				description: [
 					'Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.'
@@ -23,6 +26,7 @@ characterClass.rogue = {
 			},
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Sneak Attack',
 				description: [
 					'You know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon.',
@@ -32,6 +36,7 @@ characterClass.rogue = {
 			},
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Thieves’ Cant',
 				description: [
 					'During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.',
@@ -42,6 +47,7 @@ characterClass.rogue = {
 		'_2': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Cunning Action',
 				description: [
 					'Your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action.'
@@ -51,6 +57,7 @@ characterClass.rogue = {
 		'_3': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Roguish Archetype',
 				description: [
 					'You choose an archetype that you emulate in the exercise of your rogue abilities: Thief, Assassin, or Arcane Trickster, all detailed at the end of the class description. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.'
@@ -68,6 +75,7 @@ characterClass.rogue = {
 		'_4': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Ability Score Improvement',
 				description: [
 					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
@@ -77,6 +85,7 @@ characterClass.rogue = {
 		'_5': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Uncanny Dodge',
 				description: [
 					'When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack’s damage against you.'
@@ -86,6 +95,7 @@ characterClass.rogue = {
 		'_6': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Expertise',
 				description: [
 					'Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.'
@@ -95,6 +105,7 @@ characterClass.rogue = {
 		'_7': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Evasion',
 				description: [
 					'You can nimbly dodge out of the way of certain area effects, such as a red dragon’s fiery breath or an ice storm spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail.'
@@ -104,6 +115,7 @@ characterClass.rogue = {
 		'_8': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Ability Score Improvement',
 				description: [
 					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
@@ -124,6 +136,7 @@ characterClass.rogue = {
 		'_10': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Ability Score Improvement',
 				description: [
 					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
@@ -133,6 +146,7 @@ characterClass.rogue = {
 		'_11': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Reliable Talent',
 				description: [
 					'You have refined your chosen skills until they approach perfection. Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10.'
@@ -142,6 +156,7 @@ characterClass.rogue = {
 		'_12': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Ability Score Improvement',
 				description: [
 					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
@@ -162,6 +177,7 @@ characterClass.rogue = {
 		'_14': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Blindsense',
 				description: [
 					'If you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you.'
@@ -171,6 +187,7 @@ characterClass.rogue = {
 		'_15': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Slippery Mind',
 				description: [
 					'You have acquired greater mental strength. You gain proficiency in Wisdom saving throws.'
@@ -180,6 +197,7 @@ characterClass.rogue = {
 		'_16': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Ability Score Improvement',
 				description: [
 					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
@@ -199,6 +217,7 @@ characterClass.rogue = {
 		'_18': [
 			{
 				subclassAbility:false,
+				subclassName: '',
 				title: 'Elusive',
 				description: [
 					'You are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren’t incapacitated.'
@@ -206,25 +225,6 @@ characterClass.rogue = {
 			}
 		],
 		'_19': [
-			{
-				subclassAbility:false,
-				title: 'Ability Score Improvement',
-				description: [
-					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
-				]
-			}
-		],
-		'_20': [
-			{
-				subclassAbility:false,
-				title: 'Stroke of Luck',
-				description: [
-					'You have an uncanny knack for succeeding when you need to. If your attack misses a target within range, you can turn the miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20. Once you use this feature, you can’t use it again until you finish a short or long rest.'
-				]
-			}
-		]
-	}
-};
 
 function listAvailableLevelRewards(currentLevel) {
 	var levelRewardsContainer = document.querySelector('.character-level-rewards');
@@ -269,3 +269,24 @@ function createDescriptionParagraphs(rewardDescription) {
 		}
 	}
 }
+			{
+				subclassAbility:false,
+				subclassName: '',
+				title: 'Ability Score Improvement',
+				description: [
+					'You can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can’t increase an ability score above 20 using this feature. Alternatively, you can instead choose a character feat.'
+				]
+			}
+		],
+		'_20': [
+			{
+				subclassAbility:false,
+				subclassName: '',
+				title: 'Stroke of Luck',
+				description: [
+					'You have an uncanny knack for succeeding when you need to. If your attack misses a target within range, you can turn the miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20. Once you use this feature, you can’t use it again until you finish a short or long rest.'
+				]
+			}
+		]
+	}
+};
