@@ -27,11 +27,11 @@ function updateCharacterJsonVariables() {
 	updateCharacterClasssVariable();
 	updateCharacterLevelVariable();
 	toggleSubclassVisibility();
+	listAvailableLevelRewards();
 	updateProficiencyBonusVariable();
 	forEachStat(toggleDependentProficiencies);
 	forEachStat(updateCharacterStatsVariables);
 	forEachStat(updateCharacterSkillsVariables);
-	listAvailableLevelRewards(character.level);
 	// console.log(character);
 }
 function updateCharacterRaceVariable() {
@@ -75,6 +75,57 @@ function toggleSubclassOptions() {
 		}
 	}
 }
+
+// LEVEL REWARDS
+// =============
+
+function listAvailableLevelRewards() {
+	var levelRewardsContainer = document.querySelector('.character-level-rewards');
+	clearCurrentLevelRewards(levelRewardsContainer);
+	for (characterLevel = 1; characterLevel <= character.level; characterLevel++) {
+		var levelRewardWrapper = document.createElement('div');
+		var levelRewardWrapperClass = 'level-reward-wrapper level-' + characterLevel + '-reward-wrapper';
+			levelRewardWrapper.setAttribute('class', levelRewardWrapperClass);
+		var levelRewardsVariable = 'characterClass.' + character.class + '.levelRewards._' + characterLevel;
+		if (eval(levelRewardsVariable)) {
+			levelRewardsContainer.appendChild(levelRewardWrapper,);
+			listAllRewardsAtLevel (levelRewardsVariable, levelRewardWrapper);
+		}
+	}
+}
+function clearCurrentLevelRewards(levelRewardsContainer) {
+	levelRewardsContainer.innerHTML = '';
+}
+function listAllRewardsAtLevel(levelRewardsVariable, levelRewardWrapper) {
+	var rewardInfo = '';
+	for (numberOfLevelRewards = 0; numberOfLevelRewards < eval(levelRewardsVariable).length; numberOfLevelRewards++) {
+		var eachReward = levelRewardsVariable + '[' + numberOfLevelRewards + ']';
+		var rewardIsSubclassAbility = eval(eachReward + '.subclassAbility');
+		var rewardSubclassName = eval(eachReward + '.subclassName').toLowerCase();
+		var rewardTitle = eval(eachReward + '.title');
+		var rewardTitleHtml = createInnerHtmlString('h4', rewardTitle, 'class', 'level-reward-title');
+		var rewardDescription = eval(eachReward + '.description');
+		var rewardDescriptionHtml = createDescriptionParagraphs(rewardDescription);
+		if (!rewardIsSubclassAbility || (rewardIsSubclassAbility && rewardSubclassName == character.subclass)) {
+			rewardInfo += rewardTitleHtml + rewardDescriptionHtml;
+		}
+		if (numberOfLevelRewards == (eval(levelRewardsVariable).length - 1)) {
+			levelRewardWrapper.innerHTML = rewardInfo;
+		}
+	}
+}
+function createDescriptionParagraphs(rewardDescription) {
+	var rewardDescriptionHtml = '';
+	for (numberOfDescriptionLines = 0; numberOfDescriptionLines < rewardDescription.length; numberOfDescriptionLines++) {
+		var descriptionParagraph = rewardDescription[numberOfDescriptionLines];
+		var rewardDescriptionParagraphHtml = createInnerHtmlString('p', descriptionParagraph, 'class', 'level-reward-description');
+		rewardDescriptionHtml += rewardDescriptionParagraphHtml;
+		if (numberOfDescriptionLines == rewardDescription.length - 1) {
+			return rewardDescriptionHtml
+		}
+	}
+}
+
 function updateProficiencyBonusVariable() {
 	var characterLevel = character.level;
 	var proficiencyBonus = 2;
