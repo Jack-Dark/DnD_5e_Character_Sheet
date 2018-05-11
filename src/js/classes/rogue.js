@@ -225,50 +225,6 @@ characterClass.rogue = {
 			}
 		],
 		'_19': [
-
-function listAvailableLevelRewards(currentLevel) {
-	var levelRewardsContainer = document.querySelector('.character-level-rewards');
-	clearCurrentLevelRewards(levelRewardsContainer);
-	for (characterLevel = 1; characterLevel <= currentLevel; characterLevel++) {
-		var levelRewardWrapper = document.createElement('div');
-		var levelRewardWrapperClass = 'level-reward-wrapper level-' + characterLevel + '-reward-wrapper';
-			levelRewardWrapper.setAttribute('class', levelRewardWrapperClass);
-		var levelRewardsVariable = 'characterClass.' + character.class + '.levelRewards._' + characterLevel;
-		if (eval(levelRewardsVariable)) {
-			levelRewardsContainer.appendChild(levelRewardWrapper,);
-			listAllRewardsAtLevel (levelRewardsVariable, levelRewardWrapper);
-		}
-	}
-}
-function clearCurrentLevelRewards(levelRewardsContainer) {
-	// var levelRewardsContainer = document.querySelector('.character-level-rewards');
-	levelRewardsContainer.innerHTML = '';
-}
-function listAllRewardsAtLevel(levelRewardsVariable, levelRewardWrapper) {
-	var rewardInfo = '';
-	for (numberOfLevelRewards = 0; numberOfLevelRewards <= eval(levelRewardsVariable).length - 1; numberOfLevelRewards++) {
-		var eachReward = levelRewardsVariable + '[' + numberOfLevelRewards + ']';
-		var rewardTitle = eval(eachReward + '.title');
-		var rewardTitleHtml = createInnerHtmlString('h4', 'class', 'level-reward-title', rewardTitle);
-		var rewardDescription = eval(eachReward + '.description');
-		var rewardDescriptionHtml = createDescriptionParagraphs(rewardDescription);
-		rewardInfo += rewardTitleHtml + rewardDescriptionHtml;
-		if (numberOfLevelRewards == (eval(levelRewardsVariable).length - 1)) {
-			levelRewardWrapper.innerHTML = rewardInfo;
-		}
-	}
-}
-function createDescriptionParagraphs(rewardDescription) {
-	var rewardDescriptionHtml = '';
-	for (numberOfDescriptionLines = 0; numberOfDescriptionLines < rewardDescription.length; numberOfDescriptionLines++) {
-		var descriptionParagraph = rewardDescription[numberOfDescriptionLines];
-		var rewardDescriptionParagraphHtml = createInnerHtmlString('p', 'class', 'level-reward-description', descriptionParagraph);
-		rewardDescriptionHtml += rewardDescriptionParagraphHtml;
-		if (numberOfDescriptionLines == rewardDescription.length - 1) {
-			return rewardDescriptionHtml
-		}
-	}
-}
 			{
 				subclassAbility:false,
 				subclassName: '',
