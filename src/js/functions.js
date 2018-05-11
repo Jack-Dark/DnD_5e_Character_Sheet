@@ -1,3 +1,5 @@
+onDocumentReady(runDocumentReadyTasks);
+
 function onDocumentReady(fn) {
   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
     fn();
@@ -9,6 +11,10 @@ function runDocumentReadyTasks() {
 	updateCharacterJsonVariables();
 	forEachStat(injectCharacterJsonIntoPage);
 }
+
+// GLOBAL FUNCTIONS
+// ================
+
 function createInnerHtmlString(element, contents, attribute, attributeValue) {
 	return '<' + element + ' ' + attribute + '="' + attributeValue + '">' + contents + '</' + element + '>'
 }
@@ -22,6 +28,8 @@ function camelizeHyphenatedString(string) {
 		return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
 	}).replace(/[-]+/g, '').replace(/\s+/g, '');
 }
+// combine camelize functions with `.replace(/[\s-]+/g, '');` ?
+
 function parseUrlSearchIntoJson() { // come back to this to run first on document ready.
   var query = location.search.substr(1);
   var result = {};
@@ -42,7 +50,7 @@ function updateCharacterJsonVariables() {
 	forEachStat(toggleDependentProficiencies);
 	forEachStat(updateCharacterStatsVariables);
 	forEachStat(updateCharacterSkillsVariables);
-	// console.log(character);
+	console.log(character);
 }
 function updateCharacterRaceVariable() {
 	return character.race = camelizeHyphenatedString(document.querySelector('#character--race').value.toLowerCase());
@@ -264,8 +272,3 @@ function injectCharacterSkillsModifers(statType) {
 		skillModifierInput.value = eval(characterSkillModifierVariable);
 	}
 }
-
-
-
-
-onDocumentReady(runDocumentReadyTasks);
