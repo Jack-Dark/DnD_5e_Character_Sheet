@@ -1,17 +1,17 @@
-<div class="skill" data-stat-type="{{lowercase stat}}" data-skill-name="{{hyphenate skill}}">
-	<div class="proficiencies">
-		<input id="skill--{{hyphenate skill}}__expertise" class="skill__expertise style-with-label" type="checkbox" onchange="{{>on-change-script}}" {{#if expertise}}checked{{/if}}>
-		<label class="label__expertise checbox-label" for="skill--{{hyphenate skill}}__expertise">
+<div class="character--skill" data-stat-type="{{lowercase stat}}" data-skill-name="{{hyphenate skill}}">
+	<div class="character--skill-proficiencies">
+		<input id="character--skill--{{hyphenate skill}}__expertise" class="character--skill__expertise style-with-label" type="checkbox" onchange="{{>on-change-script}}" {{#if expertise}}checked{{/if}}>
+		<label class="label__expertise checbox-label" for="character--skill--{{hyphenate skill}}__expertise">
 			<span class="sr-only">Skill {{skill}} has expertise.</span>
 		</label>
-		<input id="skill--{{hyphenate skill}}__proficiency" class="skill__proficiency style-with-label" type="checkbox" onchange="{{>on-change-script}}" {{#if proficiency}}checked{{/if}}>
-		<label class="label__proficiency checbox-label" for="skill--{{hyphenate skill}}__proficiency">
+		<input id="character--skill--{{hyphenate skill}}__proficiency" class="character--skill__proficiency style-with-label" type="checkbox" onchange="{{>on-change-script}}" {{#if proficiency}}checked{{/if}}>
+		<label class="label__proficiency checbox-label" for="character--skill--{{hyphenate skill}}__proficiency">
 			<span class="sr-only">Skill {{skill}} has proficiency.</span>
 		</label>
 	</div>
-	<div class="skill-details">
-		<input id="skill--{{hyphenate skill}}" class="text-center skill__modifier" data-skill-name="{{hyphenate skill}}" type="text" disabled>
-		<label for="skill--{{hyphenate skill}}">
+	<div class="character--skill-details">
+		<input id="character--skill--{{hyphenate skill}}" class="text-center character--skill__modifier" data-skill-name="{{hyphenate skill}}" type="text" disabled>
+		<label for="character--skill--{{hyphenate skill}}">
 			{{titleize skill}} (<span class="text-uppercase">{{truncate stat 3}}</span>)
 		</label>
 	</div>

@@ -157,11 +157,11 @@ function updateProficiencyBonusVariable() {
 	}
 }
 function forEachStat(fn) {
-	var statBlock = document.querySelectorAll('.stat');
+	var statBlock = document.querySelectorAll('.character--stat');
 	for (occuranceOfStatBlock = 0; occuranceOfStatBlock < statBlock.length; occuranceOfStatBlock++) {
 		var thisStatBlockElement = statBlock[occuranceOfStatBlock];
 		var thisStatType = thisStatBlockElement.getAttribute('data-stat-type');
-		var thisStatValue = Number(thisStatBlockElement.querySelector('.stat__value').value);
+		var thisStatValue = Number(thisStatBlockElement.querySelector('.character--stat__value').value);
 		var thisStatModifier = calculateStatModifier(thisStatValue);
 		fn(thisStatBlockElement, thisStatType, thisStatValue, thisStatModifier);
 	}
@@ -188,14 +188,14 @@ function updateCharacterStatModifierVariable(statType, statModifier) {
 	return eval('character.stats.' + statType + '.modifier = statModifier');
 }
 function toggleDependentProficiencies(statBlockElement, statType, statScore, statModifier) {
-	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+	var skillsOfStatType = document.querySelectorAll('.character--skill[data-stat-type="' + statType + '"]');
 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
 		var skillName = thisSkill.getAttribute('data-skill-name');
 		var skillNameCamelized = camelizeHyphenatedString(skillName);
-		var skillExpertiseInput = thisSkill.querySelector('.skill__expertise');
+		var skillExpertiseInput = thisSkill.querySelector('.character--skill__expertise');
 		var skillHasExpertise = skillExpertiseInput.checked;
-		var skillProficiencyInput = thisSkill.querySelector('.skill__proficiency');
+		var skillProficiencyInput = thisSkill.querySelector('.character--skill__proficiency');
 		var skillHasProficiency = skillProficiencyInput.checked;
 		var characterSkillVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized;
 		var characterSkillExpertiseVariable = eval(characterSkillVariable + '.expertise');
@@ -217,14 +217,14 @@ function checkProficiencyIfExpertiseIsChecked(skillHasExpertise, skillHasProfici
 	}
 }
 function updateCharacterSkillsVariables(statBlockElement, statType, statScore, statModifier) {
-	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+	var skillsOfStatType = document.querySelectorAll('.character--skill[data-stat-type="' + statType + '"]');
 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
 		var skillName = thisSkill.getAttribute('data-skill-name');
 		var skillNameCamelized = camelizeHyphenatedString(skillName);
-		var skillExpertiseInput = thisSkill.querySelector('.skill__expertise');
+		var skillExpertiseInput = thisSkill.querySelector('.character--skill__expertise');
 		var skillHasExpertise = skillExpertiseInput.checked;
-		var skillProficiencyInput = thisSkill.querySelector('.skill__proficiency');
+		var skillProficiencyInput = thisSkill.querySelector('.character--skill__proficiency');
 		var skillHasProficiency = skillProficiencyInput.checked;
 		var characterSkillVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized;
 		var characterSkillExpertiseVariable = eval(characterSkillVariable + '.expertise');
@@ -259,15 +259,15 @@ function injectCharacterProficiencyBonus() {
 	document.querySelector('#input__proficiency-bonus').value = character.proficiencyBonus;
 }
 function injectCharacterStatsModifers(statBlockElement, statModifier) {
-	statBlockElement.querySelector('input.stat__modifier').value = statModifier;
+	statBlockElement.querySelector('input.character--stat__modifier').value = statModifier;
 }
 function injectCharacterSkillsModifers(statType) {
-	var skillsOfStatType = document.querySelectorAll('.skill[data-stat-type="' + statType + '"]');
+	var skillsOfStatType = document.querySelectorAll('.character--skill[data-stat-type="' + statType + '"]');
 	for (occuranceOfskillsOfStatType = 0; occuranceOfskillsOfStatType < skillsOfStatType.length; occuranceOfskillsOfStatType++) {
 		var thisSkill = skillsOfStatType[occuranceOfskillsOfStatType];
 		var skillName = thisSkill.getAttribute('data-skill-name');
 		var skillNameCamelized = camelizeHyphenatedString(skillName);
-		var skillModifierInput = thisSkill.querySelector('.skill__modifier');
+		var skillModifierInput = thisSkill.querySelector('.character--skill__modifier');
 		var characterSkillModifierVariable = 'character.stats.' + statType + '.skills.' + skillNameCamelized + '.modifier';
 		skillModifierInput.value = eval(characterSkillModifierVariable);
 	}

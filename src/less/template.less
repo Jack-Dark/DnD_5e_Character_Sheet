@@ -154,13 +154,13 @@ input {
 	}
 }
 
-.stat {
-	.stat__input-wrapper {
+.character--stat {
+	.character--stat__input-wrapper {
 		padding: 5px;
 	}
 	input {
 		@border-radius: 20px;
-		&.stat__modifier {
+		&.character--stat__modifier {
 			@modifier-input-size: 50px;
 			width: @modifier-input-size;
 			height: @modifier-input-size;
@@ -169,26 +169,24 @@ input {
 			font-weight: bold;
 			border-radius: @border-radius;
 		}
-		&.stat__value {
+		&.character--stat__value {
 			border-radius: @border-radius;
 		}
 	}
 }
-.skill {
-	input {
-		&.skill__modifier {
-			width: 30px;
-			border-top-width: 0;
-			border-right-width: 0;
-			border-left-width: 0;
-		}
+.character--skill {
+	&__modifier {
+		width: 30px;
+		border-top-width: 0;
+		border-right-width: 0;
+		border-left-width: 0;
 	}
-	.proficiencies,
-	.skill-details {
+	& &-proficiencies,
+	& &-details {
 		display: inline-block;
 		vertical-align: middle;
 	}
-	.skill-details {
+	& &-details {
 		padding-left: 10px;
 	}
 }
